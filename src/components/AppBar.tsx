@@ -12,7 +12,13 @@ import { Link } from "react-router-native";
 const styles = StyleSheet.create({
   container: {
     paddingTop: Constants.statusBarHeight,
+    paddingHorizontal: 5,
     backgroundColor: "#f2f2f2",
+  },
+  contentContainer: {
+    display: "flex",
+    flex: 1,
+    justifyContent: "space-around",
   },
   text: {
     color: "black",
@@ -24,7 +30,7 @@ const styles = StyleSheet.create({
 const AppBar = () => {
   return (
     <View style={styles.container}>
-      <ScrollView horizontal>
+      <ScrollView contentContainerStyle={styles.contentContainer} horizontal>
         <TouchableWithoutFeedback>
           <Link to="/">
             <Text style={styles.text}>Home</Text>
