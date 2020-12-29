@@ -9,3 +9,15 @@
 - yarn install
 
 - yarn start
+
+### Features to implement
+
+- display lighting mode
+- #### Feeder features to implement
+
+  - Display level of feed remaining
+  - automatically discharge feed
+
+- #### Drinker features to implement
+  - display water level
+  - automatically fill water tank
