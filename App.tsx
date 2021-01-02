@@ -1,11 +1,15 @@
-import React from "react";
-import Main from "./src/views";
-import { NativeRouter } from "react-router-native";
+import * as React from "react";
+import { AppRegistry } from "react-native";
+import { Provider as PaperProvider } from "react-native-paper";
+import { expo } from "./app.json";
+import App from "./src";
 
-export default function App() {
+export default function Main() {
   return (
-    <NativeRouter>
-      <Main />
-    </NativeRouter>
+    <PaperProvider>
+      <App />
+    </PaperProvider>
   );
 }
+
+AppRegistry.registerComponent(expo.name, () => Main);
