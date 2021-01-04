@@ -13,4 +13,5 @@ web-build/
 .DS_Store
 
 
-.vscode/
+.vscode
+yarn-error.log

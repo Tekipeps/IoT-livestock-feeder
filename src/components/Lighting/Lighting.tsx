@@ -1,9 +1,13 @@
 import React from "react";
-import { View, Text, StyleSheet, Switch } from "react-native";
+import { Switch } from "react-native-paper";
+import WbIncandescentIcon from "@material-ui/icons/WbIncandescent";
+import { View, Text, StyleSheet } from "react-native";
+import { Icon } from "react-native-paper/lib/typescript/components/Avatar/Avatar";
 
 const styles = StyleSheet.create({
   container: {
     marginVertical: 10,
+    paddingHorizontal: 10,
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
@@ -22,27 +26,18 @@ const styles = StyleSheet.create({
 });
 
 const Lighting = () => {
-  const [isEnabled, setIsEnabled] = React.useState<boolean>(false);
-  const bulbStyle = isEnabled
-    ? { color: "yellow", fontSize: "30px" }
-    : { color: "black", fontSize: "30px" };
-  const toggleSwitch = () => {
-    setIsEnabled(!isEnabled);
-  };
+  const [isSwitchOn, setIsSwitchOn] = React.useState(false);
+  const bulbStyle = isSwitchOn ? { color: "yellow" } : { color: "black" };
+  const onToggleSwitch = () => setIsSwitchOn(!isSwitchOn);
   return (
     <View style={styles.container}>
       <View style={styles.bulbContainer}>
-        {/* <WbIncandescentIcon style={bulbStyle} /> */}
+        <Icon icon="wbincandescent" />
+        <WbIncandescentIcon style={bulbStyle} />
         <Text style={styles.text}>Light</Text>
       </View>
       <View>
-        <Switch
-          trackColor={{ false: "whitesmoke", true: "#f2f2f2" }}
-          thumbColor={isEnabled ? "#f2f2f2" : "whitesmoke"}
-          ios_backgroundColor="#3e3e3e"
-          onValueChange={toggleSwitch}
-          value={isEnabled}
-        />
+        <Switch onValueChange={onToggleSwitch} value={isSwitchOn} />
       </View>
     </View>
   );
