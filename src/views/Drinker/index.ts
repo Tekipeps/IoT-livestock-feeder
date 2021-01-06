@@ -1,1 +1,1 @@
-export { default as Drinkers } from "./Drinker";
+export { default as Drinker } from "./Drinker";

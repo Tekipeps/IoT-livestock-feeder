@@ -1,8 +1,6 @@
 import React from "react";
 import { Switch } from "react-native-paper";
-import WbIncandescentIcon from "@material-ui/icons/WbIncandescent";
 import { View, Text, StyleSheet } from "react-native";
-import { Icon } from "react-native-paper/lib/typescript/components/Avatar/Avatar";
 
 const styles = StyleSheet.create({
   container: {
@@ -32,8 +30,6 @@ const Lighting = () => {
   return (
     <View style={styles.container}>
       <View style={styles.bulbContainer}>
-        <Icon icon="wbincandescent" />
-        <WbIncandescentIcon style={bulbStyle} />
         <Text style={styles.text}>Light</Text>
       </View>
       <View>

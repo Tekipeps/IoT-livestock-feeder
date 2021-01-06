@@ -9,12 +9,15 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     paddingHorizontal: 10,
   },
+  text: {
+    fontSize: 20,
+  },
 });
 
 const Drinker = () => {
   return (
     <View style={styles.container}>
-      <Text>drinker stats</Text>
+      <Text style={styles.text}>Drinker stats</Text>
     </View>
   );
 };

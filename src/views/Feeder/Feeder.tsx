@@ -8,13 +8,17 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     paddingVertical: 5,
     paddingHorizontal: 10,
+    marginVertical: 10,
+  },
+  text: {
+    fontSize: 20,
   },
 });
 
 const Feeder = () => {
   return (
     <View style={styles.container}>
-      <Text>feeder stats</Text>
+      <Text style={styles.text}>Feeder stats</Text>
     </View>
   );
 };
