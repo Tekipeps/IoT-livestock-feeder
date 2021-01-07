@@ -1,51 +1,45 @@
 import React from "react";
-import io from "socket.io-client";
 
 interface Props {
-  userId: string;
-  enabled: boolean;
   url: string;
-  onConnected: () => void;
 }
 
-interface Message {
-  content: string;
-}
-
-const useWebSockets = ({ userId, onConnected, enabled, url }: Props) => {
-  const ref = React.useRef<SocketIOClient.Socket>();
-  const [messages, setMessages] = React.useState<Message[]>([]);
+const useWebSockets = ({ url }: Props) => {
+  const ref = React.useRef<WebSocket>();
+  const [message, setMessage] = React.useState<string>("");
 
   React.useEffect(() => {
-    if (!enabled) return;
-    const socket = io(url);
-    socket.emit("joinRoom", userId);
-    socket.emit("message", (msg: Message) => {
-      setMessages([...messages, msg]);
-    });
-    socket.on("disconnect", () => {
-      console.log("disconnected from websocket");
-    });
-    socket.on("connect", () => {
-      if (onConnected) {
-        onConnected();
+    const gateway = `ws://${url}/ws`;
+    function initWebSocket() {
+      console.log("Trying to open a WebSocket connection...");
+      const websocket = new WebSocket(gateway);
+      websocket.onopen = () => console.log("Websocket connected");
+      websocket.onclose = () => {
+        console.log("Connection closed");
+        setTimeout(initWebSocket, 2000);
+      };
+      websocket.onmessage = onMessage; // <-- add this line
+      ref.current = websocket;
+    }
+
+    function onMessage(event: WebSocketMessageEvent) {
+      let state;
+      if (event.data == "1") {
+        state = "ON";
+      } else {
+        state = "OFF";
       }
-    });
-    socket.on("reconnect", () => {
-      socket.emit("joinRoom");
-    });
-    ref.current = socket;
+      setMessage(state);
+    }
+    initWebSocket();
+    return () => ref.current?.close();
+  }, []);
 
-    return () => {};
-  }, [enabled, messages]);
-
-  const send = (msg: string, userId: string) => {
-    ref.current?.emit("message", {
-      content: msg,
-      userId,
-    });
+  const toggle = () => {
+    ref.current?.send("toggle");
   };
-  return { send };
+
+  return { toggle, message };
 };
 
 export default useWebSockets;
