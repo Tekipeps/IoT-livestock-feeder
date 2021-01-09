@@ -1,7 +1,7 @@
 import React from "react";
 import { Switch } from "react-native-paper";
 import { View, Text, StyleSheet } from "react-native";
-import useWebSockets from "../../utils/useWebSockets";
+import useWebSockets from "../../utils/useWebSocket";
 
 const styles = StyleSheet.create({
   container: {
@@ -24,8 +24,12 @@ const styles = StyleSheet.create({
   },
 });
 
-const Lighting = () => {
-  const { toggle, message } = useWebSockets({ url: "192.168.43.253" });
+interface Props {
+  toggle: () => void;
+  led: boolean;
+}
+
+const Lighting = ({ toggle, led }: Props) => {
   const [isSwitchOn, setIsSwitchOn] = React.useState(false);
 
   const bulbStyle = isSwitchOn ? { color: "yellow" } : { color: "black" };
@@ -37,10 +41,10 @@ const Lighting = () => {
     <View style={styles.container}>
       <View style={styles.bulbContainer}>
         <Text style={styles.text}>Light</Text>
-        <Text>{message}</Text>
+        <Text>{led ? "ON" : "OFF"}</Text>
       </View>
       <View>
-        <Switch onValueChange={onToggleSwitch} value={isSwitchOn} />
+        <Switch onValueChange={onToggleSwitch} value={led} />
       </View>
     </View>
   );

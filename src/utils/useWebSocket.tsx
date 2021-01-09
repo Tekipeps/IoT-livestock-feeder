@@ -1,12 +1,14 @@
+import { EventNoteSharp } from "@material-ui/icons";
 import React from "react";
+import { Message } from "../../types";
 
 interface Props {
   url: string;
 }
 
-const useWebSockets = ({ url }: Props) => {
+const useWebSocket = ({ url }: Props) => {
   const ref = React.useRef<WebSocket>();
-  const [message, setMessage] = React.useState<string>("");
+  const [state, setState] = React.useState<Message>({ led: false });
 
   React.useEffect(() => {
     const gateway = `ws://${url}/ws`;
@@ -23,13 +25,10 @@ const useWebSockets = ({ url }: Props) => {
     }
 
     function onMessage(event: WebSocketMessageEvent) {
-      let state;
-      if (event.data == "1") {
-        state = "ON";
-      } else {
-        state = "OFF";
+      const { data } = event;
+      if (String(data).startsWith("led: ")) {
+        setState({ ...state, led: String(data).substring(5) === "1" });
       }
-      setMessage(state);
     }
     initWebSocket();
     return () => ref.current?.close();
@@ -39,7 +38,7 @@ const useWebSockets = ({ url }: Props) => {
     ref.current?.send("toggle");
   };
 
-  return { toggle, message };
+  return { toggle, state };
 };
 
-export default useWebSockets;
+export default useWebSocket;
