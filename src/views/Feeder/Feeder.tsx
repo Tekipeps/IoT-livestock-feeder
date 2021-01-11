@@ -6,19 +6,21 @@ const styles = StyleSheet.create({
     flex: 1,
     display: "flex",
     flexDirection: "column",
-    paddingVertical: 5,
-    paddingHorizontal: 10,
-    marginVertical: 10,
-  },
-  text: {
-    fontSize: 20,
+    borderColor: "blue",
+    borderWidth: 1,
+    height: 30,
   },
 });
 
-const Feeder = () => {
+interface Props {
+  distance: string;
+}
+
+const Feeder = ({ distance }: Props) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Feeder stats</Text>
+      <Text>Feeder stats</Text>
+      <Text>{distance}</Text>
     </View>
   );
 };

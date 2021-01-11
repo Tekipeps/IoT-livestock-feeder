@@ -8,7 +8,10 @@ interface Props {
 
 const useWebSocket = ({ url }: Props) => {
   const ref = React.useRef<WebSocket>();
-  const [state, setState] = React.useState<Message>({ led: false });
+  const [state, setState] = React.useState<Message>({
+    led: false,
+    distance: "",
+  });
 
   React.useEffect(() => {
     const gateway = `ws://${url}/ws`;
@@ -25,20 +28,26 @@ const useWebSocket = ({ url }: Props) => {
     }
 
     function onMessage(event: WebSocketMessageEvent) {
-      const { data } = event;
-      if (String(data).startsWith("led: ")) {
-        setState({ ...state, led: String(data).substring(5) === "1" });
+      let { data } = event;
+      data = String(data);
+      if (data.startsWith("led: ")) {
+        setState({ ...state, led: data.substring(5) === "1" });
+      } else if (data.startsWith("distance: ")) {
+        setState({ ...state, distance: data.substring(10) });
       }
     }
     initWebSocket();
     return () => ref.current?.close();
   }, []);
 
-  const toggle = () => {
-    ref.current?.send("toggle");
+  const toggleLed = () => {
+    ref.current?.send("toggleLed");
   };
 
-  return { toggle, state };
+  const getDistance = () => {
+    ref.current?.send("getDistance");
+  };
+  return { toggleLed, state, getDistance };
 };
 
 export default useWebSocket;

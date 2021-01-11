@@ -32,7 +32,6 @@ interface Props {
 const Lighting = ({ toggle, led }: Props) => {
   const [isSwitchOn, setIsSwitchOn] = React.useState(false);
 
-  const bulbStyle = isSwitchOn ? { color: "yellow" } : { color: "black" };
   const onToggleSwitch = () => {
     setIsSwitchOn(!isSwitchOn);
     toggle();
