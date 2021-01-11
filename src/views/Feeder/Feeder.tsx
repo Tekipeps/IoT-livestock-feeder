@@ -1,14 +1,21 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
+import { Button, Divider } from "react-native-paper";
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     display: "flex",
-    flexDirection: "column",
-    borderColor: "blue",
-    borderWidth: 1,
-    height: 30,
+    height: 200,
+  },
+  top: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  heading: {
+    marginLeft: 10,
+    fontSize: 18,
   },
 });
 
@@ -19,7 +26,11 @@ interface Props {
 const Feeder = ({ distance }: Props) => {
   return (
     <View style={styles.container}>
-      <Text>Feeder stats</Text>
+      <View style={styles.top}>
+        <Text style={styles.heading}>Feeder stats</Text>
+        <Button>Fetch data</Button>
+      </View>
+      <Divider />
       <Text>{distance}</Text>
     </View>
   );

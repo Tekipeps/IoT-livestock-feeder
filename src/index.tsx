@@ -1,6 +1,5 @@
 import React from "react";
 import { View } from "react-native";
-import { Divider } from "react-native-paper";
 import Lighting from "./components/Lighting";
 import Navigation from "./components/Navigation/Navigation";
 import { Drinker } from "./views/Drinker";
@@ -17,7 +16,6 @@ const Index = () => {
       <Navigation />
       <Lighting toggle={toggleLed} led={state.led} />
       <Feeder distance={state.distance} />
-      <Divider />
       <Drinker />
     </View>
   );
