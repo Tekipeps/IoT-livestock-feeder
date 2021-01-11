@@ -1,15 +1,12 @@
 import React from "react";
-import { Switch } from "react-native-paper";
+import { Divider, Switch } from "react-native-paper";
 import { View, Text, StyleSheet } from "react-native";
-import useWebSockets from "../../utils/useWebSocket";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/index";
 
 const styles = StyleSheet.create({
   container: {
-    marginVertical: 10,
-    paddingHorizontal: 10,
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
+    // paddingVertical: 10,
   },
   text: {
     textAlign: "center",
@@ -21,17 +18,18 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "space-between",
+    paddingVertical: 10,
   },
 });
 
 interface Props {
   toggle: () => void;
-  led: boolean;
 }
 
-const Lighting = ({ toggle, led }: Props) => {
+const Lighting = ({ toggle }: Props) => {
   const [isSwitchOn, setIsSwitchOn] = React.useState(false);
-
+  const led: boolean = useSelector((store: RootState) => store.led);
   const onToggleSwitch = () => {
     setIsSwitchOn(!isSwitchOn);
     toggle();
@@ -39,12 +37,19 @@ const Lighting = ({ toggle, led }: Props) => {
   return (
     <View style={styles.container}>
       <View style={styles.bulbContainer}>
-        <Text style={styles.text}>Light</Text>
-        <Text>{led ? "ON" : "OFF"}</Text>
+        <View
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+          }}
+        >
+          <Text style={styles.text}>Light</Text>
+          <Text>{led ? "ON" : "OFF"}</Text>
+        </View>
+        <Switch onValueChange={onToggleSwitch} value={isSwitchOn} />
       </View>
-      <View>
-        <Switch onValueChange={onToggleSwitch} value={led} />
-      </View>
+      <Divider />
     </View>
   );
 };

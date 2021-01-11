@@ -5,17 +5,20 @@ import Navigation from "./components/Navigation/Navigation";
 import { Drinker } from "./views/Drinker";
 import { Feeder } from "./views/Feeder";
 import useWebSocket from "./utils/useWebSocket";
+import { useDispatch } from "react-redux";
 
 const Index = () => {
-  const { toggleLed, state, getDistance } = useWebSocket({
+  const dispatch = useDispatch();
+  const { toggleLed, getDistance } = useWebSocket({
     url: "192.168.43.253",
+    dispatch,
   });
 
   return (
     <View>
       <Navigation />
-      <Lighting toggle={toggleLed} led={state.led} />
-      <Feeder distance={state.distance} />
+      <Lighting toggle={toggleLed} />
+      <Feeder />
       <Drinker />
     </View>
   );

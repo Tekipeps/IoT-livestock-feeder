@@ -19,11 +19,9 @@ const styles = StyleSheet.create({
   },
 });
 
-interface Props {
-  distance: string;
-}
+interface Props {}
 
-const Feeder = ({ distance }: Props) => {
+const Feeder = ({}: Props) => {
   return (
     <View style={styles.container}>
       <View style={styles.top}>
@@ -31,7 +29,7 @@ const Feeder = ({ distance }: Props) => {
         <Button>Fetch data</Button>
       </View>
       <Divider />
-      <Text>{distance}</Text>
+      <Text>{}</Text>
     </View>
   );
 };

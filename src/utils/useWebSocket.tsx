@@ -1,17 +1,16 @@
 import { EventNoteSharp } from "@material-ui/icons";
 import React from "react";
+import { Dispatch } from "redux";
 import { Message } from "../../types";
+import { onLed, toggleLedState } from "../store/ledState/actions";
 
 interface Props {
   url: string;
+  dispatch: Dispatch;
 }
 
-const useWebSocket = ({ url }: Props) => {
+const useWebSocket = ({ url, dispatch }: Props) => {
   const ref = React.useRef<WebSocket>();
-  const [state, setState] = React.useState<Message>({
-    led: false,
-    distance: "",
-  });
 
   React.useEffect(() => {
     const gateway = `ws://${url}/ws`;
@@ -31,9 +30,8 @@ const useWebSocket = ({ url }: Props) => {
       let { data } = event;
       data = String(data);
       if (data.startsWith("led: ")) {
-        setState({ ...state, led: data.substring(5) === "1" });
+        dispatch(toggleLedState());
       } else if (data.startsWith("distance: ")) {
-        setState({ ...state, distance: data.substring(10) });
       }
     }
     initWebSocket();
@@ -47,7 +45,7 @@ const useWebSocket = ({ url }: Props) => {
   const getDistance = () => {
     ref.current?.send("getDistance");
   };
-  return { toggleLed, state, getDistance };
+  return { toggleLed, getDistance };
 };
 
 export default useWebSocket;

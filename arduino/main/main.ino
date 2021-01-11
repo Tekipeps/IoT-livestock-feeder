@@ -4,8 +4,8 @@
 #include <ESPAsyncWebServer.h>
 
 // Replace with your network credentials
-const char* ssid = "stic";
-const char* password = "1234567890";
+const char* ssid = "G110";
+const char* password = "gracious2";
 
 // ultrsonic sensor pins & state
 String distanceState = "distance: ";
