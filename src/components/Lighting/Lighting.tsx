@@ -28,10 +28,8 @@ interface Props {
 }
 
 const Lighting = ({ toggle }: Props) => {
-  const [isSwitchOn, setIsSwitchOn] = React.useState(false);
   const led: boolean = useSelector((store: RootState) => store.led);
   const onToggleSwitch = () => {
-    setIsSwitchOn(!isSwitchOn);
     toggle();
   };
   return (
@@ -47,7 +45,7 @@ const Lighting = ({ toggle }: Props) => {
           <Text style={styles.text}>Light</Text>
           <Text>{led ? "ON" : "OFF"}</Text>
         </View>
-        <Switch onValueChange={onToggleSwitch} value={isSwitchOn} />
+        <Switch onValueChange={onToggleSwitch} value={led} />
       </View>
       <Divider />
     </View>
