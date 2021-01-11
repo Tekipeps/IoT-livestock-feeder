@@ -5,7 +5,7 @@
 - 1 Led
 - 1 resistor
 - 1 ultrasonic sensor
-- 1 Node MCU 8266
+- 1 NodeMCU ESP8266
 - 5v power supply
 - 1 Water level sensor
 
