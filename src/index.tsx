@@ -18,7 +18,7 @@ const Index = () => {
     <View>
       <Navigation />
       <Lighting toggle={toggleLed} />
-      <Feeder />
+      <Feeder getDistance={getDistance} />
       <Drinker />
     </View>
   );

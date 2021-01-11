@@ -1,6 +1,8 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Button, Divider } from "react-native-paper";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store";
 
 const styles = StyleSheet.create({
   container: {
@@ -19,17 +21,23 @@ const styles = StyleSheet.create({
   },
 });
 
-interface Props {}
+interface Props {
+  getDistance: () => void;
+}
 
-const Feeder = ({}: Props) => {
+const Feeder = ({ getDistance }: Props) => {
+  const feeder = useSelector((state: RootState) => state.feeder);
+  const handleButtonPress = () => {
+    getDistance();
+  };
   return (
     <View style={styles.container}>
       <View style={styles.top}>
         <Text style={styles.heading}>Feeder stats</Text>
-        <Button>Fetch data</Button>
+        <Button onPress={handleButtonPress}>Fetch data</Button>
       </View>
       <Divider />
-      <Text>{}</Text>
+      <Text>{feeder.distance + " cm"}</Text>
     </View>
   );
 };

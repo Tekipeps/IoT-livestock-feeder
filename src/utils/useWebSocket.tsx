@@ -1,8 +1,7 @@
-import { EventNoteSharp } from "@material-ui/icons";
 import React from "react";
 import { Dispatch } from "redux";
-import { Message } from "../../types";
-import { onLed, toggleLedState } from "../store/ledState/actions";
+import { toggleLedState } from "../store/ledState/actions";
+import { setFeedDistance } from "../store/feederState/actions";
 
 interface Props {
   url: string;
@@ -32,6 +31,7 @@ const useWebSocket = ({ url, dispatch }: Props) => {
       if (data.startsWith("led: ")) {
         dispatch(toggleLedState());
       } else if (data.startsWith("distance: ")) {
+        dispatch(setFeedDistance(data.substring(10)));
       }
     }
     initWebSocket();
