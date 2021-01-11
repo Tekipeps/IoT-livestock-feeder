@@ -1,10 +1,19 @@
 ### IOT feeder app for AUL STIC
 
+### Hardware
+
+- 1 Led
+- 1 resistor
+- 1 ultrasonic sensor
+- 1 Node MCU 8266
+- 5v power supply
+- 1 Water level sensor
+
 #### Development
 
-- git clone https://github.com/Tekipeps/STIC-iot-feeder-mobile-app.git
+- git clone https://github.com/Tekipeps/IOT-animal-feeder.git
 
-- cd STIC-iot-feeder-mobile-app
+- cd IOT-animal-feeder
 
 - yarn install
 
