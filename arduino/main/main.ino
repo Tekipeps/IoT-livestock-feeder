@@ -4,17 +4,17 @@
 #include <ESPAsyncWebServer.h>
 
 // Replace with your network credentials
-const char* ssid = "G110";
-const char* password = "gracious2";
+const char* ssid = "stic";
+const char* password = "1234567890";
 
 // ultrsonic sensor pins & state
 String distanceState = "distance: ";
-const int trigPin = D6;
-const int echoPin = D7;
+const int trigPin = D1;
+const int echoPin = D2;
 
 // light pin & state
 bool ledState = 0;
-const int ledPin = D2;
+const int ledPin = D8;
 
 // Create AsyncWebServer object on port 80
 AsyncWebServer server(80);
@@ -102,6 +102,8 @@ void processDistance(){
   float _speed = 0.03475;
   distance = _time * _speed;
   distanceState =  "distance: " + String(distance);
+  delay(1000);
+  sendDistanceState();
 }
 
 void setup(){
