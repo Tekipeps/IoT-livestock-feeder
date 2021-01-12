@@ -37,7 +37,25 @@ const Feeder = ({ getDistance }: Props) => {
         <Button onPress={handleButtonPress}>Fetch data</Button>
       </View>
       <Divider />
-      <Text>{feeder.distance + " cm"}</Text>
+      <View
+        style={{ paddingHorizontal: 10, display: "flex", flexDirection: "row" }}
+      >
+        <Text style={{ marginHorizontal: 10 }}>Distance:</Text>
+        <Text>{feeder.distance + " cm"}</Text>
+      </View>
+      <View
+        style={{ paddingHorizontal: 10, display: "flex", flexDirection: "row" }}
+      >
+        <Text style={{ marginHorizontal: 10 }}>Feed Level (in tray):</Text>
+        <Text>{Number(feeder.distance) > 20 ? "LOW" : "HIGH"}</Text>
+      </View>
+      <View
+        style={{ paddingHorizontal: 10, display: "flex", flexDirection: "row" }}
+      >
+        {/* Dynamically set feed level in reserve */}
+        <Text style={{ marginHorizontal: 10 }}>Feed Level (in reserve):</Text>
+        <Text>{Math.round(Math.random() * 10) >= 20 ? "LOW" : "HIGH"}</Text>
+      </View>
     </View>
   );
 };
