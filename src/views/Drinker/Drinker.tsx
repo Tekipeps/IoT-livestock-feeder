@@ -24,7 +24,7 @@ const Drinker = () => {
       <View style={styles.top}>
         <Text style={styles.heading}>Drinker stats</Text>
         {/* <Text>{distance}</Text> */}
-        <Button>Fetch data</Button>
+        <Button>Discharge Water</Button>
       </View>
       <Divider />
     </View>
