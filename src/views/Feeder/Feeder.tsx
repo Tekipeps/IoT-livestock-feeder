@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Button, Divider } from "react-native-paper";
 import { useSelector } from "react-redux";
+import Speedometer from "../../components/Speedometer";
 import { RootState } from "../../store";
 
 const styles = StyleSheet.create({
@@ -18,6 +19,14 @@ const styles = StyleSheet.create({
   heading: {
     marginLeft: 10,
     fontSize: 18,
+  },
+  levelText: {
+    fontWeight: "600",
+    marginHorizontal: 10,
+  },
+  speedometerContainer: {
+    display: "flex",
+    justifyContent: "space-between",
   },
 });
 
@@ -37,24 +46,9 @@ const Feeder = ({ getDistance }: Props) => {
         <Button onPress={handleButtonPress}>Discharge feed</Button>
       </View>
       <Divider />
-      <View
-        style={{ paddingHorizontal: 10, display: "flex", flexDirection: "row" }}
-      >
-        <Text style={{ marginHorizontal: 10 }}>Distance:</Text>
-        <Text>{feeder.distance + " cm"}</Text>
-      </View>
-      <View
-        style={{ paddingHorizontal: 10, display: "flex", flexDirection: "row" }}
-      >
-        <Text style={{ marginHorizontal: 10 }}>Feed Level (in tray):</Text>
-        <Text>{Number(feeder.distance) > 20 ? "LOW" : "HIGH"}</Text>
-      </View>
-      <View
-        style={{ paddingHorizontal: 10, display: "flex", flexDirection: "row" }}
-      >
-        {/* Dynamically set feed level in reserve */}
-        <Text style={{ marginHorizontal: 10 }}>Feed Level (in reserve):</Text>
-        <Text>{Math.round(Math.random() * 10) >= 20 ? "LOW" : "HIGH"}</Text>
+      <View style={styles.speedometerContainer}>
+        <Text style={styles.levelText}>Level</Text>
+        <Speedometer />
       </View>
     </View>
   );
