@@ -39,11 +39,13 @@ const useWebSocket = ({ url, dispatch }: Props) => {
   }, []);
 
   const toggleLed = () => {
-    ref.current?.send("toggleLed");
+    if (ref.current?.OPEN == ref.current?.readyState)
+      ref.current?.send("toggleLed");
   };
 
   const getDistance = () => {
-    ref.current?.send("getDistance");
+    if (ref.current?.OPEN == ref.current?.readyState)
+      ref.current?.send("toggleLed");
   };
   return { toggleLed, getDistance };
 };
