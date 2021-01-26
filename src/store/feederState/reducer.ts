@@ -2,7 +2,7 @@ import { AnyAction as Action } from "redux";
 import { Type } from "./actions";
 
 export interface FeederState {
-  distance: String;
+  distance: string;
 }
 
 const initialState: FeederState = {

@@ -14,7 +14,9 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
+    paddingHorizontal: 10,
     alignItems: "center",
+    paddingVertical: 5,
   },
   heading: {
     marginLeft: 10,
@@ -27,6 +29,11 @@ const styles = StyleSheet.create({
   speedometerContainer: {
     display: "flex",
     justifyContent: "space-between",
+  },
+  dischargeBtn: {
+    backgroundColor: "blue",
+    width: 160,
+    color: "#fff",
   },
 });
 
@@ -41,7 +48,12 @@ const Feeder = ({}: Props) => {
     <View style={styles.container}>
       <View style={styles.top}>
         <Text style={styles.heading}>Feeder stats</Text>
-        <Button>Discharge feed</Button>
+        <Button
+          style={styles.dischargeBtn}
+          onPress={() => alert("Feed Discharged")}
+        >
+          <Text style={{ color: "white", fontSize: 12 }}>Discharge feed</Text>
+        </Button>
       </View>
       <Divider />
       <View style={styles.speedometerContainer}>
