@@ -43,7 +43,7 @@ const Feeder = ({ getDistance }: Props) => {
     <View style={styles.container}>
       <View style={styles.top}>
         <Text style={styles.heading}>Feeder stats</Text>
-        <Button onPress={handleButtonPress}>Discharge feed</Button>
+        <Button>Discharge feed</Button>
       </View>
       <Divider />
       <View style={styles.speedometerContainer}>
