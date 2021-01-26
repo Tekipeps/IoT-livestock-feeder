@@ -7,12 +7,14 @@ import RNSpeedometer from "react-native-speedometer";
 
 const styles = StyleSheet.create({});
 
-const Speedometer = () => {
-  const feeder = useSelector((state: RootState) => state.feeder);
+interface Props {
+  value: number;
+}
 
+const Speedometer: React.FC<Props> = ({ value }) => {
   return (
     <RNSpeedometer
-      value={Number(feeder.distance)}
+      value={value}
       size={60}
       minValue={0}
       maxValue={60}

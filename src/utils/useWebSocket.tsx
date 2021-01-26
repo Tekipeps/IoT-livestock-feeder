@@ -29,7 +29,7 @@ const useWebSocket = ({ url, dispatch }: Props) => {
       let { data } = event;
       data = String(data);
       if (data.startsWith("led: ")) {
-        dispatch(toggleLedState());
+        dispatch(toggleLedState(data.substring(5)));
       } else if (data.startsWith("distance: ")) {
         dispatch(setFeedDistance(data.substring(10)));
       }

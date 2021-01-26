@@ -34,11 +34,9 @@ interface Props {
   getDistance: () => void;
 }
 
-const Feeder = ({ getDistance }: Props) => {
+const Feeder = ({}: Props) => {
   const feeder = useSelector((state: RootState) => state.feeder);
-  const handleButtonPress = () => {
-    getDistance();
-  };
+
   return (
     <View style={styles.container}>
       <View style={styles.top}>
@@ -47,8 +45,7 @@ const Feeder = ({ getDistance }: Props) => {
       </View>
       <Divider />
       <View style={styles.speedometerContainer}>
-        <Text style={styles.levelText}>Level</Text>
-        <Speedometer />
+        <Speedometer value={Number(feeder.distance)} />
       </View>
     </View>
   );

@@ -10,7 +10,7 @@ const ledReducer = (state = initialState, action: Action) => {
     case Type.LED_OFF:
       return false;
     case Type.LED_TOGGLE:
-      return !state;
+      return action.value;
     default:
       return state;
   }
