@@ -29,6 +29,7 @@ const styles = StyleSheet.create({
   speedometerContainer: {
     display: "flex",
     justifyContent: "space-between",
+    paddingTop: 15,
   },
   dischargeBtn: {
     backgroundColor: "blue",

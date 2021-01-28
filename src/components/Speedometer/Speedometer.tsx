@@ -17,7 +17,7 @@ const Speedometer: React.FC<Props> = ({ value }) => {
       value={value}
       size={60}
       minValue={0}
-      maxValue={60}
+      maxValue={20}
       labels={[
         {
           name: "High",
