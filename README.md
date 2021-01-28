@@ -1,5 +1,7 @@
 ### IOT feeder app for AUL STIC
 
+![](./app.jpg)
+
 ### Hardware
 
 - 1 Led
