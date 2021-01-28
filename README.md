@@ -1,6 +1,6 @@
 ### IOT feeder app for AUL STIC
 
-![](./app.jpg)
+![](./files/app.jpg)
 
 ### Hardware
 
