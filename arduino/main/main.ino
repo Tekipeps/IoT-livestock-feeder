@@ -4,17 +4,23 @@
 #include <ESPAsyncWebServer.h>
 
 // Replace with your network credentials
-const char* ssid = "stic";
-const char* password = "1234567890";
+const char* ssid = "Software Lab";
+const char* password = "";
 
 // ultrsonic sensor pins & state
-String distanceState = "distance: ";
+float distanceState = 0;
 const int trigPin = D1;
 const int echoPin = D2;
 
-// light pin & state
-bool ledState = 0;
-const int ledPin = D8;
+// FEEDER CLOSED STATE
+const int sw1 = D5;
+const int sw2 = D6;
+int relay_grp_1 = 0;
+
+// FEEDER OPENED STATE
+const int sw3 = D7;
+const int sw4 = D8;
+int relay_grp_2 = 1;
 
 // Create AsyncWebServer object on port 80
 AsyncWebServer server(80);
@@ -28,26 +34,24 @@ const char index_html[] PROGMEM = R"rawliteral(
 </html>
 )rawliteral";
 
-void sendLedState() {
-  String text = "led: " + String(ledState);
-  ws.textAll(text);
-}
-
 void sendDistanceState() {
-  ws.textAll(distanceState);
+  ws.textAll("FEED_DISTANCE: " + String(distanceState));
 }
 
 void handleWebSocketMessage(void *arg, uint8_t *data, size_t len) {
   AwsFrameInfo *info = (AwsFrameInfo*)arg;
   if (info->final && info->index == 0 && info->len == len && info->opcode == WS_TEXT) {
     data[len] = 0;
-    if (strcmp((char*)data, "toggleLed") == 0) {
-      ledState = !ledState;      
-      sendLedState();
-    }
     if (strcmp((char*)data, "getDistance") == 0) {
       sendDistanceState();
-    }
+    } else if(strcmp((char*)data, "DISCHARGE_FEED") == 0){
+      if(distanceState < 7) {
+        ws.textAll("FEEDER_FULL");
+      } else {
+        ws.textAll("DISCHARGING_FEED");
+        toggleAcutator(1);
+      }
+     }
   }
 }
 
@@ -77,7 +81,7 @@ void initWebSocket() {
 String processor(const String& var){
   Serial.println(var);
   if(var == "LED"){
-    if (ledState){
+    if (1){
       return "ON";
     }
     else {
@@ -90,21 +94,43 @@ void processDistance(){
   unsigned long duration;
   float distance;
   
-  digitalWrite(trigPin, 0);
+  digitalWrite(trigPin, LOW);
   delayMicroseconds(2);
   
-  digitalWrite(trigPin, 1);
+  digitalWrite(trigPin, HIGH);
   delayMicroseconds(5);
-  digitalWrite(trigPin, 0);
+  digitalWrite(trigPin, LOW);
 
   duration = pulseIn(echoPin, HIGH);
   float _time = duration/2;
   float _speed = 0.03475;
   distance = _time * _speed;
-  distanceState =  "distance: " + String(distance);
-  delay(1000);
+  distanceState = distance;
+  if(distance <= 7){
+      ws.textAll("FEED_FULL");
+      toggleAcutator(0);
+  }
+  delay(100);
   sendDistanceState();
 }
+
+ void toggleAcutator(bool state) {
+  if(state){
+    digitalWrite(sw1, LOW);
+    digitalWrite(sw2, LOW);
+    digitalWrite(sw4, HIGH);
+    digitalWrite(sw3, HIGH);
+    relay_grp_1 = 0;
+    relay_grp_2 = 1;
+   } else {
+    digitalWrite(sw1, HIGH);
+    digitalWrite(sw2, HIGH);
+    digitalWrite(sw3, LOW);
+    digitalWrite(sw4, LOW);
+    relay_grp_1 = 1;
+    relay_grp_2 = 0;
+   }
+ }
 
 void setup(){
   // Serial port for debugging purposes
@@ -112,8 +138,15 @@ void setup(){
 
   pinMode(trigPin, OUTPUT);
   pinMode(echoPin, INPUT);
-  pinMode(ledPin, OUTPUT);
-  digitalWrite(ledPin, LOW);
+  pinMode(sw1, OUTPUT);
+  pinMode(sw2, OUTPUT);
+  pinMode(sw3, OUTPUT);
+  pinMode(sw4, OUTPUT);
+  
+  digitalWrite(sw1, HIGH);
+  digitalWrite(sw2, HIGH);
+  digitalWrite(sw3, LOW);
+  digitalWrite(sw4, LOW);
   
   // Connect to Wi-Fi
   WiFi.begin(ssid, password);
@@ -138,7 +171,6 @@ void setup(){
 
 void loop() {
   ws.cleanupClients();
-  digitalWrite(ledPin, ledState);
   processDistance();
   Serial.println(distanceState);
 }

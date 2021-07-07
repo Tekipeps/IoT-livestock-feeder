@@ -9,16 +9,16 @@ import { useDispatch } from "react-redux";
 
 const Index = () => {
   const dispatch = useDispatch();
-  const { toggleLed, getDistance } = useWebSocket({
-    url: "192.168.43.253",
+  const { dischargeFeed } = useWebSocket({
+    url: "ws://10.10.1.20/ws",
     dispatch,
   });
 
   return (
     <View>
       <Navigation />
-      <Lighting toggle={toggleLed} />
-      <Feeder getDistance={getDistance} />
+      {/* <Lighting toggle={toggleLed} /> */}
+      <Feeder dischargeFeed={dischargeFeed}/>
       <Drinker />
     </View>
   );

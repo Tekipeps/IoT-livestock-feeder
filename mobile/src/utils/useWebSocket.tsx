@@ -12,7 +12,7 @@ const useWebSocket = ({ url, dispatch }: Props) => {
   const ref = React.useRef<WebSocket>();
 
   React.useEffect(() => {
-    const gateway = `ws://${url}/ws`;
+    const gateway = url;
     function initWebSocket() {
       console.log("Trying to open a WebSocket connection...");
       const websocket = new WebSocket(gateway);
@@ -28,26 +28,25 @@ const useWebSocket = ({ url, dispatch }: Props) => {
     function onMessage(event: WebSocketMessageEvent) {
       let { data } = event;
       data = String(data);
-      if (data.startsWith("led: ")) {
-        dispatch(toggleLedState(data.substring(5)));
-      } else if (data.startsWith("distance: ")) {
-        dispatch(setFeedDistance(data.substring(10)));
+      if (data.startsWith("FEED_DISTANCE: ")) {
+        dispatch(setFeedDistance(data.substring(14)));
+      } else {
+        console.log(data)
       }
     }
     initWebSocket();
     return () => ref.current?.close();
   }, []);
 
-  const toggleLed = () => {
-    if (ref.current?.OPEN == ref.current?.readyState)
-      ref.current?.send("toggleLed");
-  };
-
   const getDistance = () => {
     if (ref.current?.OPEN == ref.current?.readyState)
-      ref.current?.send("toggleLed");
+      ref.current?.send("GET_FEED_LEVEL");
   };
-  return { toggleLed, getDistance };
+
+  const dischargeFeed = () => {
+    if (ref.current?.OPEN == ref.current?.readyState) ref.current?.send("DISCHARGE_FEED")
+  }
+  return { getDistance, dischargeFeed };
 };
 
 export default useWebSocket;
