@@ -1,35 +1,29 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-import { Button, Divider } from "react-native-paper";
+import { Button } from "react-native-paper";
 import { useSelector } from "react-redux";
 import Speedometer from "../../components/Speedometer";
 import { RootState } from "../../store";
 
-
 const styles = StyleSheet.create({
   container: {
     display: "flex",
-    height: 200,
-  },
-  top: {
-    paddingHorizontal: 10,
-    paddingVertical: 5,
+    height: 220,
+    padding: 10,
+    backgroundColor: "whitesmoke",
   },
   heading: {
-    marginLeft: 10,
     fontSize: 18,
-  },
-  levelText: {
-    fontWeight: "600",
-    marginHorizontal: 10,
-  },
-  speedometerContainer: {
-    display: "flex",
-    paddingTop: 15,
+    fontWeight: "700",
+    textAlign: "center",
+    textDecorationLine: "underline",
+    backgroundColor: "white",
+    paddingVertical: 3,
+    marginBottom: 5
   },
   dischargeBtn: {
-    backgroundColor: "blue",
-    width: 160,
+    backgroundColor: "#6200ee",
+    marginBottom: 5,
     color: "#fff",
   },
 });
@@ -43,19 +37,14 @@ const Feeder = ({ dischargeFeed }: Props) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.top}>
         <Text style={styles.heading}>Feed level</Text>
+      <View style={{ justifyContent: "space-around", flex:1, flexDirection: "row" }}>
+        <Speedometer value={Number(feeder.distance)} heading={"In tray"} />
+        <Speedometer value={Number(feeder.distance)} heading={"In tank"} />
       </View>
-      <Divider />
-      <View style={styles.speedometerContainer}>
-        <Speedometer value={Number(feeder.distance)} />
-      </View>
-      <Button
-          style={styles.dischargeBtn}
-          onPress={dischargeFeed}
-        >
-          <Text style={{ color: "white", fontSize: 12 }}>Discharge feed</Text>
-        </Button>
+      <Button style={styles.dischargeBtn} onPress={dischargeFeed}>
+        <Text style={{ color: "white", fontSize: 12 }}>Discharge feed</Text>
+      </Button>
     </View>
   );
 };

@@ -1,16 +1,16 @@
 import * as React from "react";
 import { Appbar, Menu, Divider } from "react-native-paper";
+import Constants from "expo-constants";
 import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
-  bottom: {
-    position: "absolute",
-    left: 0,
-    right: 0,
-    bottom: 0,
-  },
+  header: { marginTop: Constants.statusBarHeight, marginBottom: 5 },
   menu: {
-    left: 180,
+    top: Constants.statusBarHeight,
+  },
+  menuItem: {
+    width: 10,
+    fontSize: 5,
   },
 });
 
@@ -18,18 +18,20 @@ const Navigation = () => {
   const [visible, setVisible] = React.useState(false);
   const _handleMore = () => setVisible(true);
   return (
-    <Appbar.Header>
-      {/* <Appbar.BackAction onPress={_goBack} /> */}
-      <Appbar.Content title="IOT Feeder" />
+    <Appbar.Header style={styles.header}>
+      <Appbar.Content title="IoT Feeder" />
       <Menu
         visible={visible}
-        anchor={<Appbar.Action icon="dots-vertical" onPress={_handleMore} />}
+        anchor={<Appbar.Action icon="hamburger" onPress={_handleMore} />}
         onDismiss={() => setVisible(false)}
         style={styles.menu}
       >
-        <Menu.Item onPress={() => {}} title="Setup device" />
-        <Divider />
-        <Menu.Item onPress={() => {}} title="Credits" />
+        <Menu.Item icon="cog-outline" onPress={() => {}} title="Setup device" />
+        <Menu.Item
+          icon="file-table-outline"
+          onPress={() => {}}
+          title="Credits"
+        />
       </Menu>
     </Appbar.Header>
   );

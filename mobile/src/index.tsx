@@ -1,11 +1,14 @@
 import React from "react";
-import { View } from "react-native";
-import Lighting from "./components/Lighting";
+import { StyleSheet, View } from "react-native";
 import Navigation from "./components/Navigation/Navigation";
 import { Drinker } from "./views/Drinker";
 import { Feeder } from "./views/Feeder";
 import useWebSocket from "./utils/useWebSocket";
 import { useDispatch } from "react-redux";
+
+const styles = StyleSheet.create({
+  
+})
 
 const Index = () => {
   const dispatch = useDispatch();
@@ -17,7 +20,6 @@ const Index = () => {
   return (
     <View>
       <Navigation />
-      {/* <Lighting toggle={toggleLed} /> */}
       <Feeder dischargeFeed={dischargeFeed}/>
       <Drinker />
     </View>

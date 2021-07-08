@@ -16,15 +16,14 @@
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-40.0.1.tar.gz",
-    "react-native-paper": "^4.5.0",
+    "react-native-paper": "^4.9.2",
     "react-native-speedometer": "^1.0.5",
+    "react-native-vector-icons": "^8.1.0",
     "react-native-web": "~0.13.12",
     "react-redux": "^7.2.2",
     "react-router-native": "^5.2.0",
     "redux": "^4.0.5",
-    "redux-thunk": "^2.3.0",
-    "socket.io-client": "^3.0.5",
-    "yarn": "^1.22.10"
+    "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
     "@babel/core": "~7.9.0",
