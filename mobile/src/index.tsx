@@ -6,21 +6,19 @@ import { Feeder } from "./views/Feeder";
 import useWebSocket from "./utils/useWebSocket";
 import { useDispatch } from "react-redux";
 
-const styles = StyleSheet.create({
-  
-})
+const styles = StyleSheet.create({});
 
 const Index = () => {
   const dispatch = useDispatch();
   const { dischargeFeed } = useWebSocket({
-    url: "ws://10.10.1.20/ws",
+    url: "ws://192.168.0.100/ws",
     dispatch,
   });
 
   return (
     <View>
       <Navigation />
-      <Feeder dischargeFeed={dischargeFeed}/>
+      <Feeder dischargeFeed={dischargeFeed} />
       <Drinker />
     </View>
   );

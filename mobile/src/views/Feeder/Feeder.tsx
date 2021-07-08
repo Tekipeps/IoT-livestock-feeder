@@ -16,10 +16,9 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "700",
     textAlign: "center",
-    textDecorationLine: "underline",
     backgroundColor: "white",
     paddingVertical: 3,
-    marginBottom: 5
+    marginBottom: 5,
   },
   dischargeBtn: {
     backgroundColor: "#6200ee",
@@ -37,8 +36,14 @@ const Feeder = ({ dischargeFeed }: Props) => {
 
   return (
     <View style={styles.container}>
-        <Text style={styles.heading}>Feed level</Text>
-      <View style={{ justifyContent: "space-around", flex:1, flexDirection: "row" }}>
+      <Text style={styles.heading}>Feed level</Text>
+      <View
+        style={{
+          justifyContent: "space-around",
+          flex: 1,
+          flexDirection: "row",
+        }}
+      >
         <Speedometer value={Number(feeder.distance)} heading={"In tray"} />
         <Speedometer value={Number(feeder.distance)} heading={"In tank"} />
       </View>

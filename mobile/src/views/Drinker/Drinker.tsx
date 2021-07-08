@@ -24,7 +24,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "700",
     textAlign: "center",
-    textDecorationLine: "underline",
     backgroundColor: "white",
     paddingVertical: 3,
     marginBottom: 5,
@@ -49,7 +48,7 @@ const Drinker = () => {
           alignSelf: "center",
           justifyContent: "center",
           alignItems: "center",
-          marginBottom: 10
+          marginBottom: 10,
         }}
       >
         <Speedometer value={Number(drinker.distance)} heading="" />

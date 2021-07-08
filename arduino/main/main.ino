@@ -4,8 +4,8 @@
 #include <ESPAsyncWebServer.h>
 
 // Replace with your network credentials
-const char* ssid = "Software Lab";
-const char* password = "";
+const char* ssid = "hacktivist";
+const char* password = "80808080";
 
 // ultrsonic sensor pins & state
 float distanceState = 0;
@@ -107,7 +107,6 @@ void processDistance(){
   distance = _time * _speed;
   distanceState = distance;
   if(distance <= 7){
-      ws.textAll("FEED_FULL");
       toggleAcutator(0);
   }
   delay(100);
